@@ -57,7 +57,7 @@ if text_input:
     # Chunking method selector
     chunking_method = st.radio(
         "Chunking method:",
-        ["By Character Count", "By Line Count"],
+        ["By Line Count", "By Character Count"],
         help="Choose how to split your text for processing"
     )
     
