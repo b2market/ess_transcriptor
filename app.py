@@ -21,9 +21,7 @@ It fixes punctuation, improves structure, and renders text in an easy-to-read ma
 # Check for API key
 api_key = os.environ.get("OPENAI_API_KEY", "")
 if not api_key:
-    api_key = st.text_input("Enter your OpenAI API key:", type="password")
-    if not api_key:
-        st.warning("Please enter your OpenAI API key to proceed.")
+    st.warning("OpenAI API key not found in environment variables. Please add it to your .env file or Secrets tab.")
 
 # Input methods
 input_method = st.radio("Choose input method:", ["Paste Text", "Upload File"])
