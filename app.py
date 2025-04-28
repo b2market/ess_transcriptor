@@ -57,7 +57,7 @@ if text_input:
     # Chunking method selector
     chunking_method = st.radio(
         "Chunking method:",
-        ["By Line Count", "By Character Count"],
+        ["By Sentence Count", "By Character Count"],
         help="Choose how to split your text for processing"
     )
     
@@ -73,14 +73,14 @@ if text_input:
             step=500,
             help="Size of text chunks to process separately. Larger chunks provide better context but may hit API limits."
         )
-    else:  # By Line Count
+    else:  # By Sentence Count
         line_count = st.slider(
-            "Number of lines per chunk",
-            min_value=50,
-            max_value=300,
-            value=150,
-            step=10,
-            help="Number of lines to include in each chunk. 150 lines is recommended for optimal processing."
+            "Number of sentences per chunk",
+            min_value=20,
+            max_value=150,
+            value=50,
+            step=5,
+            help="Number of sentences to include in each chunk. 50 sentences is recommended for optimal processing."
         )
     
     model = st.selectbox(
