@@ -22,6 +22,8 @@ It fixes punctuation, improves structure, and renders text in an easy-to-read ma
 api_key = os.environ.get("OPENAI_API_KEY", "")
 if not api_key:
     st.warning("OpenAI API key not found in environment variables. Please add it to your .env file or Secrets tab.")
+else:
+    st.success("OpenAI API key found in environment variables.")
 
 # Input methods
 input_method = st.radio("Choose input method:", ["Paste Text", "Upload File"])
@@ -88,7 +90,7 @@ if text_input:
                     progress_bar = st.progress(0)
                     
                     for i, chunk in enumerate(chunks):
-                        processed_chunk = process_text_with_chatgpt(chunk, api_key, model)
+                        processed_chunk = process_text_with_chatgpt(chunk, model=model)
                         processed_chunks.append(processed_chunk)
                         progress_bar.progress((i + 1) / len(chunks))
                     

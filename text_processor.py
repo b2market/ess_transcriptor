@@ -79,7 +79,7 @@ def split_text_into_chunks(text, chunk_size=None, line_count=None):
     
     return [text]
 
-def process_text_with_chatgpt(text, api_key, model="gpt-4o"):
+def process_text_with_chatgpt(text, api_key=None, model="gpt-4o"):
     """
     Process Russian text through ChatGPT to enhance readability
     while preserving content.
@@ -87,6 +87,10 @@ def process_text_with_chatgpt(text, api_key, model="gpt-4o"):
     # The newest OpenAI model is "gpt-4o" which was released May 13, 2024.
     # do not change this unless explicitly requested by the user
     
+    # Use environment variable if api_key is not provided
+    if not api_key:
+        api_key = os.environ.get("OPENAI_API_KEY")
+        
     client = OpenAI(api_key=api_key)
     
     # The prompt provided by the user
