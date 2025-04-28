@@ -19,9 +19,9 @@ It fixes punctuation, improves structure, and renders text in an easy-to-read ma
 """)
 
 # Check for API key
-api_key = os.environ.get("OPENAI_API_KEY", "")
+api_key = os.environ.get("OPENAI_KEY") or os.environ.get("OPENAI_API_KEY", "")
 if not api_key:
-    st.warning("OpenAI API key not found in environment variables. Please add it to your .env file or Secrets tab.")
+    st.warning("OpenAI API key not found in environment variables. Please add OPENAI_KEY to your Secrets tab.")
 else:
     st.success("OpenAI API key found in environment variables.")
 

@@ -89,7 +89,11 @@ def process_text_with_chatgpt(text, api_key=None, model="gpt-4o"):
     
     # Use environment variable if api_key is not provided
     if not api_key:
-        api_key = os.environ.get("OPENAI_API_KEY")
+        # Try to get API key from different environment variables
+        api_key = os.environ.get("OPENAI_KEY") or os.environ.get("OPENAI_API_KEY")
+        
+    if not api_key:
+        raise Exception("No OpenAI API key found. Please check your Secrets or .env file.")
         
     client = OpenAI(api_key=api_key)
     
