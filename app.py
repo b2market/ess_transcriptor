@@ -112,14 +112,14 @@ if text_input:
                     
                     # Display processed text
                     st.subheader("Processed Text")
-                    st.markdown(processed_text)
+                    st.text_area("Plain Text Result", processed_text, height=500)
                     
                     # Download option
                     st.download_button(
-                        label="Download processed text as Markdown",
+                        label="Download processed text as TXT",
                         data=processed_text,
-                        file_name="enhanced_text.md",
-                        mime="text/markdown"
+                        file_name="enhanced_text.txt",
+                        mime="text/plain"
                     )
                     
                 except Exception as e:
