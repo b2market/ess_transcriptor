@@ -21,7 +21,14 @@ def split_text_into_chunks(text, chunk_size=None, line_count=None):
         for i in range(0, len(lines), line_count):
             chunk_lines = lines[i:i + line_count]
             # Join the lines back together to form a chunk
-            chunks.append('\n'.join(chunk_lines))
+            chunk = '\n'.join(chunk_lines)
+            # Only add non-empty chunks
+            if chunk.strip():
+                chunks.append(chunk)
+
+        # Ensure we have at least one chunk, even if it's smaller than line_count
+        if not chunks and text.strip():
+            chunks.append(text)
 
         return chunks
 
@@ -147,7 +154,7 @@ def process_text_with_chatgpt(text, api_key=None, model="gpt-4o"):
 
 
     Вот текст для обработки:
-    
+
     """
 
     try:

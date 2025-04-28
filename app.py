@@ -131,9 +131,14 @@ if text_input:
                     # Replace the temporary result with the final one
                     result_area.empty()
                     st.subheader("Обработанный текст")
+                    
+                    # Ensure we display the full result
                     st.text_area("Готовый результат",
                                  processed_text,
                                  height=500)
+                    
+                    # Debug information to verify all chunks were processed
+                    st.info(f"Всего обработано {len(chunks)} частей текста. Общая длина результата: {len(processed_text)} символов.")
 
                     # Download option
                     st.download_button(label="Download processed text as TXT",
