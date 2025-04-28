@@ -99,22 +99,39 @@ if text_input:
                     chunks = split_text_into_chunks(text_input, chunk_size,
                                                     line_count)
 
-                    # Process each chunk
-                    processed_chunks = []
+                    # Create placeholders for real-time updates
                     progress_bar = st.progress(0)
-
+                    status_text = st.empty()
+                    result_area = st.empty()
+                    
+                    # Process each chunk with real-time display
+                    processed_chunks = []
+                    current_result = ""
+                    
                     for i, chunk in enumerate(chunks):
+                        status_text.text(f"Обработка части {i+1} из {len(chunks)}...")
+                        
                         processed_chunk = process_text_with_chatgpt(
                             chunk, model=model)
                         processed_chunks.append(processed_chunk)
+                        
+                        # Update the display with current progress
+                        current_result += processed_chunk + "\n\n"
+                        result_area.text_area("Текущий результат (обновляется)",
+                                             current_result,
+                                             height=500)
+                        
+                        # Update progress bar
                         progress_bar.progress((i + 1) / len(chunks))
-
-                    # Combine processed chunks
+                    
+                    # Final combined result
                     processed_text = "\n\n".join(processed_chunks)
-
-                    # Display processed text
-                    st.subheader("Processed Text")
-                    st.text_area("Plain Text Result",
+                    status_text.text("Обработка завершена!")
+                    
+                    # Replace the temporary result with the final one
+                    result_area.empty()
+                    st.subheader("Обработанный текст")
+                    st.text_area("Готовый результат",
                                  processed_text,
                                  height=500)
 
