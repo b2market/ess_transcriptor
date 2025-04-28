@@ -5,35 +5,24 @@ from openai import OpenAI
 def split_text_into_chunks(text, chunk_size=None, line_count=None):
     """
     Split a long text into smaller chunks for processing.
-    Either by character count or by number of sentences.
+    Either by character count or by number of lines.
     """
-    # Split text into sentences (approximately)
-    sentences = []
-    # Split by common sentence endings while preserving line breaks
-    for paragraph in text.split('\n'):
-        paragraph_sentences = []
-        # Common Russian sentence endings
-        for sent_end in ['. ', '! ', '? ', '... ']:
-            paragraph = paragraph.replace(sent_end, sent_end + '|||||')
-        # Split by our marker
-        for sent in paragraph.split('|||||'):
-            if sent.strip():
-                paragraph_sentences.append(sent)
-        sentences.extend(paragraph_sentences)
-
     # If no chunk specifications are provided, return as single chunk
     if not chunk_size and not line_count:
         return [text]
 
-    # If line count is specified, split by number of sentences
+    # If line count is specified, split by number of raw lines
     if line_count:
+        # Split the text into individual lines
+        lines = text.split('\n')
         chunks = []
-        total_sentences = len(sentences)
-
-        for i in range(0, total_sentences, line_count):
-            chunk_sentences = sentences[i:i + line_count]
-            chunks.append(' '.join(chunk_sentences))
-
+        
+        # Create chunks of the specified number of lines
+        for i in range(0, len(lines), line_count):
+            chunk_lines = lines[i:i + line_count]
+            # Join the lines back together to form a chunk
+            chunks.append('\n'.join(chunk_lines))
+            
         return chunks
 
     # Otherwise split by character count
