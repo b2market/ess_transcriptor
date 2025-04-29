@@ -44,7 +44,7 @@ client = OpenAI(api_key=os.environ.get("OPENAI_KEY")
                 or os.environ.get("OPENAI_API_KEY", ""))
 
 
-def process_chunk(chunk: str, system_message: str = OPTIMIZED_SYSTEM_MESSAGE):
+def process_chunk(chunk: str, system_message: str = ADVANCED_SYSTEM_MESSAGE):
     response = client.chat.completions.create(model=MODEL,
                                               messages=[{
                                                   "role":
