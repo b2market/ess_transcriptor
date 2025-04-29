@@ -1,3 +1,4 @@
+
 import streamlit as st
 import os
 from dotenv import load_dotenv
@@ -22,26 +23,19 @@ if not api_key:
     st.warning("OpenAI API key не найден. Добавьте OPENAI_KEY в .env или Secrets.")
     st.stop()
 
-uploaded_file = st.file_uploader("Загрузите .txt файл с текстом", type=["txt"])
+# Replace file upload with text area
+user_text = st.text_area("Вставьте текст для обработки:", height=300, placeholder="Вставьте сюда русский текст для обработки...")
 
-if uploaded_file:
-    try:
-        text = uploaded_file.read().decode("utf-8")
-        st.info("Обработка текста... Пожалуйста, подождите.")
-        output = process_text_with_chatgpt(text)
-        st.success("Обработка завершена!")
-        st.download_button("📥 Скачать результат", output, file_name="processed_text.txt", mime="text/plain")
-        st.text_area("Результат:", output, height=500)
-    except Exception as e:
-        st.error(f"Ошибка при обработке файла: {str(e)}")
-        st.info("Попробуйте напрямую вставить текст в поле ниже:")
-        user_text = st.text_area("Вставьте текст для обработки:", height=300)
-        if st.button("Обработать текст"):
-            if user_text:
-                try:
-                    output = process_text_with_chatgpt(user_text)
-                    st.success("Обработка завершена!")
-                    st.download_button("📥 Скачать результат", output, file_name="processed_text.txt", mime="text/plain")
-                    st.text_area("Результат:", output, height=500)
-                except Exception as e:
-                    st.error(f"Ошибка при обработке текста: {str(e)}")
+if st.button("Обработать текст"):
+    if user_text:
+        try:
+            st.info("Обработка текста... Пожалуйста, подождите.")
+            with st.spinner("Обработка..."):
+                output = process_text_with_chatgpt(user_text)
+            st.success("Обработка завершена!")
+            st.download_button("📥 Скачать результат", output, file_name="processed_text.txt", mime="text/plain")
+            st.text_area("Результат:", output, height=500)
+        except Exception as e:
+            st.error(f"Ошибка при обработке текста: {str(e)}")
+    else:
+        st.warning("Пожалуйста, введите текст для обработки.")
