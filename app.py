@@ -2,7 +2,7 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-from text_processor import process_text_with_chatgpt
+from text_processor import process_text_with_chatgpt, split_text_by_tokens, process_chunk
 
 load_dotenv()
 
