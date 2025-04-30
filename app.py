@@ -99,6 +99,10 @@ if st.button("Обработать текст"):
             # Complete the progress bar
             progress_bar.progress(1.0)
             status_text.text("Обработка завершена!")
+            
+            # Display token information summary
+            total_input_tokens = text_processor.count_tokens(user_text)
+            st.info(f"Размер исходного текста: {total_input_tokens} токенов, разбит на {total_chunks} частей.")
 
             # Join all processed chunks
             output = "\n\n".join(results)

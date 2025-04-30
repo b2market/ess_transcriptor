@@ -57,6 +57,15 @@ client = OpenAI(api_key=os.environ.get("OPENAI_KEY")
 
 
 def process_chunk(chunk: str, system_message: str = ADVANCED_SYSTEM_MESSAGE):
+    # Count tokens in both system message and user message
+    system_token_count = count_tokens(system_message)
+    user_token_count = count_tokens(chunk)
+    total_tokens = system_token_count + user_token_count
+    
+    # Print token information to Streamlit
+    import streamlit as st
+    st.info(f"Token counts - System: {system_token_count}, User chunk: {user_token_count}, Total: {total_tokens}")
+    
     response = client.chat.completions.create(model=MODEL,
                                               messages=[{
                                                   "role":
