@@ -62,9 +62,16 @@ def process_chunk(chunk: str, system_message: str = ADVANCED_SYSTEM_MESSAGE):
     user_token_count = count_tokens(chunk)
     total_tokens = system_token_count + user_token_count
     
-    # Print token information to Streamlit
+    # Print token information to browser console instead of Streamlit UI
     import streamlit as st
-    st.info(f"Token counts - System: {system_token_count}, User chunk: {user_token_count}, Total: {total_tokens}")
+    st.write(f"""
+    <script>
+        console.log("Token counts - System: {system_token_count}, User chunk: {user_token_count}, Total: {total_tokens}");
+        console.log("OpenAI Messages:");
+        console.log("System message:", {repr(system_message)});
+        console.log("User message:", {repr(chunk)});
+    </script>
+    """, unsafe_allow_html=True)
     
     response = client.chat.completions.create(model=MODEL,
                                               messages=[{
