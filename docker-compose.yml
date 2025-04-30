@@ -3,7 +3,8 @@ version: '3.8'
 
 services:
   russian-text-enhancer:
-    build: .
+    build:
+      context: https://github.com/АДРЕС_ВАШЕГО_РЕПОЗИТОРИЯ.git#main
     container_name: russian-text-enhancer
     restart: unless-stopped
     ports:
