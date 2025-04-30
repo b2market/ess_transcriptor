@@ -102,11 +102,11 @@ if st.button("Обработать текст"):
             
             # Log token information to browser console instead of UI
             total_input_tokens = text_processor.count_tokens(user_text)
-            st.write(f"""
+            st.components.v1.html(f"""
             <script>
                 console.log("Total input tokens: {total_input_tokens}, split into {total_chunks} chunks");
             </script>
-            """, unsafe_allow_html=True)
+            """, height=0)
 
             # Join all processed chunks
             output = "\n\n".join(results)

@@ -64,14 +64,15 @@ def process_chunk(chunk: str, system_message: str = ADVANCED_SYSTEM_MESSAGE):
     
     # Print token information to browser console instead of Streamlit UI
     import streamlit as st
-    st.write(f"""
+    st.components.v1.html(f"""
     <script>
         console.log("Token counts - System: {system_token_count}, User chunk: {user_token_count}, Total: {total_tokens}");
-        console.log("OpenAI Messages:");
-        console.log("System message:", {repr(system_message)});
-        console.log("User message:", {repr(chunk)});
+        console.log("OpenAI Messages - System:");
+        console.log({repr(system_message)});
+        console.log("OpenAI Messages - User chunk:");
+        console.log({repr(chunk)});
     </script>
-    """, unsafe_allow_html=True)
+    """, height=0)
     
     response = client.chat.completions.create(model=MODEL,
                                               messages=[{
