@@ -100,13 +100,9 @@ if st.button("Обработать текст"):
             progress_bar.progress(1.0)
             status_text.text("Обработка завершена!")
             
-            # Log token information to browser console instead of UI
+            # Log token information to Python console instead of browser console
             total_input_tokens = text_processor.count_tokens(user_text)
-            st.components.v1.html(f"""
-            <script>
-                console.log("Total input tokens: {total_input_tokens}, split into {total_chunks} chunks");
-            </script>
-            """, height=0)
+            print(f"Total input tokens: {total_input_tokens}, split into {total_chunks} chunks")
 
             # Join all processed chunks
             output = "\n\n".join(results)
