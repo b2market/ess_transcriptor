@@ -82,8 +82,6 @@ if st.button("Обработать текст"):
                     if create_summary and 'context_summary' in locals() and len(chunks) > 1:
                         context_msg = f"""
 Это часть большого текста из {total_chunks} частей. 
-Общий контекст текста:
-{context_summary}
 
 Обрабатываемый фрагмент:
 """
