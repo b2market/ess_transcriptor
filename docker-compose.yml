@@ -1,0 +1,14 @@
+
+version: '3.8'
+
+services:
+  russian-text-enhancer:
+    build: .
+    container_name: russian-text-enhancer
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./.streamlit:/app/.streamlit
