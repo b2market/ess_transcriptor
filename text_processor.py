@@ -83,37 +83,11 @@ def process_chunk(chunk: str, system_message: str = ADVANCED_SYSTEM_MESSAGE):
     return response.choices[0].message.content
 
 
-def extract_summary(text: str, max_tokens=1500) -> str:
-    """Создает краткий обзор текста для сохранения контекста"""
-    # Если текст короткий, нет необходимости в создании резюме
-    if count_tokens(text) <= max_tokens:
-        return ""
 
-    summary_prompt = "Создай очень краткое содержание этого текста (200-300 слов), перечисляя только основные темы и ключевые моменты:"
-
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": "Ты эксперт по созданию кратких резюме текстов."
-            },
-            {
-                "role": "user",
-                "content": f"{summary_prompt}\n\n{text[:50000]}"
-            }  # Ограничиваем для создания общего обзора
-        ],
-        temperature=0.1,
-        max_tokens=800)
-
-    return response.choices[0].message.content
 
 
 def process_text_with_chatgpt(text: str) -> str:
     """Обрабатывает текст с сохранением контекста между чанками"""
-    # Создаем общий контекст всего текста
-    # context_summary = extract_summary(text)
-
     chunks = split_text_by_tokens(text)
     total_chunks = len(chunks)
     results = []
