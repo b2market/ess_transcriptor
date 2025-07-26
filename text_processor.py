@@ -2,6 +2,10 @@ import os
 import openai
 import tiktoken
 from openai import OpenAI
+from dotenv import load_dotenv
+
+# Загружаем переменные из .env файла
+load_dotenv()
 
 openai.api_key = os.environ.get("OPENAI_KEY") or os.environ.get(
     "OPENAI_API_KEY", "")
